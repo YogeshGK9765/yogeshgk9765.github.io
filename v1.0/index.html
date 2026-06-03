@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Yogesh Kalyankar | Web Developer</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link rel="apple-touch-icon" href="favicon.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:       #0a1628;
+  --navy2:      #112240;
+  --navy3:      #1e3a5f;
+  --navy4:      #2d5986;
+  --blue:       #2563eb;
+  --blue-l:     #3b82f6;
+  --blue-ll:    #93c5fd;
+  --gold:       #f59e0b;
+  --gold-l:     #fbbf24;
+  --white:      #ffffff;
+  --bg:         #f1f5fb;
+  --bg2:        #e8eef8;
+  --text:       #0a1628;
+  --text2:      #334871;
+  --muted:      #6b7c9e;
+  --border:     rgba(37,99,235,0.13);
+  --border2:    rgba(37,99,235,0.22);
+  --card-bg:    #ffffff;
+  --sh:         0 2px 24px rgba(10,22,40,0.09);
+  --sh2:        0 8px 40px rgba(10,22,40,0.14);
+  --sh3:        0 16px 60px rgba(10,22,40,0.18);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.65;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--blue);border-radius:4px;}
+::selection{background:rgba(37,99,235,0.18);color:var(--navy);}
+
+.container{max-width:1100px;margin:0 auto;padding:0 2rem;}
+.section-label{font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.6rem;display:flex;align-items:center;gap:0.6rem;}
+.section-label::before{content:'';display:block;width:28px;height:2px;background:var(--gold);border-radius:2px;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3.5vw,2.6rem);font-weight:700;color:var(--navy);line-height:1.15;letter-spacing:-0.02em;margin-bottom:0.5rem;}
+.section-sub{color:var(--muted);font-size:0.95rem;max-width:520px;}
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+.delay-1{transition-delay:0.1s;}.delay-2{transition-delay:0.2s;}.delay-3{transition-delay:0.3s;}.delay-4{transition-delay:0.4s;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;width:100%;z-index:1000;padding:1.1rem 0;background:rgba(241,245,251,0.90);backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:all 0.3s;}
+nav.scrolled{padding:0.8rem 0;background:rgba(241,245,251,0.97);border-bottom-color:var(--border);box-shadow:var(--sh);}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 2rem;display:flex;justify-content:space-between;align-items:center;}
+.nav-logo{display:flex;align-items:center;gap:0.65rem;text-decoration:none;}
+.logo-box{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--navy2),var(--blue));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'DM Mono',monospace;font-size:0.82rem;font-weight:500;box-shadow:0 3px 12px rgba(37,99,235,0.35);}
+.logo-text{font-weight:700;font-size:0.92rem;color:var(--navy);line-height:1.2;}
+.logo-text span{display:block;font-size:0.68rem;color:var(--muted);font-weight:500;letter-spacing:0.04em;}
+.nav-links{display:flex;gap:0.1rem;list-style:none;align-items:center;}
+.nav-links a{font-size:0.82rem;font-weight:600;color:var(--text2);text-decoration:none;padding:0.42rem 0.85rem;border-radius:8px;transition:all 0.18s;}
+.nav-links a:hover{color:var(--navy);background:var(--bg2);}
+.nav-links .hire{background:var(--navy);color:#fff !important;padding:0.45rem 1.1rem;box-shadow:0 2px 10px rgba(10,22,40,0.25);border-radius:8px;}
+.nav-links .hire:hover{background:var(--blue)!important;transform:translateY(-1px);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--navy);border-radius:2px;transition:all 0.3s;}
+.mobile-menu{display:none;position:fixed;top:0;left:0;width:100%;height:100vh;background:var(--navy);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2rem;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.mobile-menu.open{opacity:1;pointer-events:all;}
+.mobile-menu a{color:#fff;text-decoration:none;font-size:1.4rem;font-weight:600;font-family:'Playfair Display',serif;}
+.close-menu{position:absolute;top:1.5rem;right:2rem;color:#fff;font-size:1.8rem;cursor:pointer;background:none;border:none;}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:grid;grid-template-columns:1.2fr 0.8fr;align-items:center;gap:4rem;padding:9rem 0 5rem;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 60% at 70% 40%,rgba(37,99,235,0.05) 0%,transparent 70%),radial-gradient(ellipse 40% 50% at 10% 80%,rgba(245,158,11,0.04) 0%,transparent 70%);}
+.hero-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(37,99,235,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(37,99,235,0.035) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,black 20%,transparent 90%);}
+.hero-left{position:relative;z-index:1;}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);color:#b45309;padding:0.38rem 0.95rem;border-radius:100px;font-size:0.76rem;font-weight:700;letter-spacing:0.03em;margin-bottom:1.6rem;animation:slideUp 0.6s 0.1s both ease;}
+.badge-pulse{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(245,158,11,0.6);}70%{box-shadow:0 0 0 8px rgba(245,158,11,0);}100%{box-shadow:0 0 0 0 rgba(245,158,11,0);}}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:0.8rem;color:var(--blue);margin-bottom:0.55rem;animation:slideUp 0.6s 0.2s both ease;}
+.hero-name{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5.5vw,4.5rem);font-weight:700;line-height:1.08;letter-spacing:-0.025em;color:var(--navy);animation:slideUp 0.7s 0.3s both ease;}
+.hero-name .accent{color:var(--blue);}
+.hero-role{font-family:'DM Mono',monospace;font-size:0.95rem;color:var(--text2);margin-top:1rem;animation:slideUp 0.7s 0.4s both ease;}
+.typed{color:var(--navy2);font-weight:500;}
+.cur{display:inline-block;width:2px;height:0.9em;background:var(--blue);margin-left:1px;vertical-align:text-bottom;animation:blink 1s step-end infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+.hero-desc{margin-top:1.4rem;font-size:1.0rem;color:var(--text2);line-height:1.9;max-width:500px;animation:slideUp 0.7s 0.5s both ease;}
+.hero-desc strong{color:var(--navy);font-weight:700;}
+.hero-btns{display:flex;gap:0.9rem;margin-top:2rem;flex-wrap:wrap;animation:slideUp 0.7s 0.6s both ease;}
+.btn-primary{display:inline-flex;align-items:center;gap:0.5rem;background:var(--navy);color:#fff;padding:0.8rem 1.9rem;border-radius:10px;font-size:0.88rem;font-weight:700;text-decoration:none;box-shadow:0 4px 18px rgba(10,22,40,0.28);transition:all 0.22s;}
+.btn-primary:hover{background:var(--blue);transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,99,235,0.38);}
+.btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;background:transparent;color:var(--navy);padding:0.8rem 1.9rem;border-radius:10px;font-size:0.88rem;font-weight:700;text-decoration:none;border:1.5px solid var(--border2);box-shadow:var(--sh);transition:all 0.22s;}
+.btn-secondary:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px);}
+.hero-stats{display:flex;gap:2.4rem;margin-top:2.8rem;padding-top:2.4rem;border-top:1.5px solid var(--border2);flex-wrap:wrap;animation:slideUp 0.7s 0.7s both ease;}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:700;color:var(--navy);line-height:1;letter-spacing:-0.02em;}
+.stat-num em{color:var(--blue);font-style:normal;}
+.stat-lbl{font-size:0.7rem;color:var(--muted);margin-top:0.25rem;text-transform:uppercase;letter-spacing:0.07em;font-weight:600;}
+.hero-right{position:relative;z-index:1;animation:fadeLeft 0.8s 0.4s both ease;}
+@keyframes fadeLeft{from{opacity:0;transform:translateX(30px);}to{opacity:1;transform:translateX(0);}}
+@keyframes slideUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── PHOTO CARD ── */
+.photo-card{background:var(--card-bg);border-radius:22px;border:1.5px solid var(--border2);padding:1.6rem 1.6rem 1.4rem;box-shadow:var(--sh3);position:relative;overflow:hidden;}
+.photo-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--navy2),var(--blue),var(--blue-ll));}
+/* Beautiful gradient background for photo — shows nicely with PNG transparent photos */
+.photo-wrapper{
+  width:100%;aspect-ratio:3/4;border-radius:14px;overflow:hidden;position:relative;
+  background:linear-gradient(145deg,#0b1d3a 0%,#1a3562 35%,#1d4a8c 65%,#2563eb 100%);
+}
+.photo-wrapper::before{
+  content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,0.055) 1.5px,transparent 1.5px);
+  background-size:22px 22px;
+}
+.photo-wrapper::after{
+  content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 100%,rgba(10,22,40,0.55) 0%,transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 0%,rgba(37,99,235,0.18) 0%,transparent 70%);
+}
+.photo-wrapper img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;position:relative;z-index:3;}
+.photo-badge{position:absolute;bottom:-1rem;right:-0.5rem;background:var(--navy);color:#fff;padding:0.55rem 1rem;border-radius:10px;font-size:0.72rem;font-weight:700;box-shadow:0 4px 16px rgba(10,22,40,0.4);border:2px solid rgba(255,255,255,0.15);white-space:nowrap;}
+.photo-info{margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid var(--border);}
+.photo-name{font-weight:700;font-size:1.0rem;color:var(--navy);}
+.photo-title{font-size:0.78rem;color:var(--muted);margin-top:0.15rem;}
+.photo-socials{display:flex;gap:0.55rem;margin-top:0.9rem;flex-wrap:wrap;}
+.soc-btn{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;background:var(--bg);color:var(--text2);text-decoration:none;font-size:0.85rem;font-weight:700;border:1px solid var(--border);transition:all 0.18s;}
+.soc-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
+.deco-ring{position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;border:1.5px solid rgba(37,99,235,0.08);pointer-events:none;}
+.deco-ring2{position:absolute;bottom:-80px;left:-80px;width:240px;height:240px;border-radius:50%;border:1.5px solid rgba(245,158,11,0.07);pointer-events:none;}
+
+/* ── SECTIONS ── */
+section{padding:5.5rem 0;}
+section:nth-child(even){background:var(--white);}
+.section-head{margin-bottom:3rem;}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;}
+.about-text p{font-size:1.0rem;color:var(--text2);line-height:1.9;margin-bottom:1.1rem;}
+.about-text p strong{color:var(--navy);font-weight:700;}
+.about-highlights{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem;}
+.hl-card{background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:1.1rem 1.2rem;transition:all 0.22s;}
+.hl-card:hover{border-color:var(--blue-ll);box-shadow:var(--sh);}
+.hl-icon{font-size:1.4rem;margin-bottom:0.4rem;}
+.hl-title{font-size:0.88rem;font-weight:700;color:var(--navy);}
+.hl-desc{font-size:0.75rem;color:var(--muted);margin-top:0.2rem;}
+.about-right{background:var(--navy2);border-radius:20px;padding:2.5rem;color:#fff;position:relative;overflow:hidden;}
+.about-right::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(37,99,235,0.15);pointer-events:none;}
+.about-right-label{font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1.5rem;}
+.info-row{display:flex;align-items:baseline;gap:0.75rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.07);}
+.info-row:last-child{border-bottom:none;}
+.info-key{font-size:0.75rem;color:rgba(255,255,255,0.5);min-width:80px;font-weight:500;}
+.info-val{font-size:0.9rem;color:rgba(255,255,255,0.92);font-weight:500;}
+.info-val a{color:var(--blue-ll);text-decoration:none;}
+.info-val a:hover{color:var(--gold);}
+
+/* ── SKILLS ── */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.2rem;}
+.skill-card{background:var(--card-bg);border:1.5px solid var(--border);border-radius:16px;padding:1.6rem 1.7rem;transition:all 0.22s;}
+.skill-card:hover{border-color:var(--blue-ll);box-shadow:var(--sh2);transform:translateY(-3px);}
+.skill-card-head{display:flex;align-items:center;gap:0.7rem;margin-bottom:1.1rem;}
+.skill-icon{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--navy2),var(--blue));display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 3px 10px rgba(37,99,235,0.3);}
+.skill-cat{font-size:0.9rem;font-weight:700;color:var(--navy);}
+.skill-tags{display:flex;flex-wrap:wrap;gap:0.45rem;}
+.skill-tag{background:var(--bg);border:1px solid var(--border2);color:var(--text2);font-size:0.75rem;font-weight:500;padding:0.3rem 0.75rem;border-radius:6px;transition:all 0.18s;}
+.skill-tag:hover{background:rgba(37,99,235,0.07);border-color:var(--blue-ll);color:var(--blue);}
+.skill-tag.highlight{background:rgba(245,158,11,0.08);border-color:rgba(245,158,11,0.25);color:#92400e;}
+
+/* ── PROJECTS ── */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:1.4rem;}
+.proj-card{background:var(--card-bg);border:1.5px solid var(--border);border-radius:16px;padding:1.8rem;transition:all 0.25s;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+.proj-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3.5px;background:linear-gradient(180deg,var(--navy2),var(--blue));border-radius:3.5px 0 0 3.5px;transition:width 0.25s;}
+.proj-card:hover{border-color:var(--blue-ll);box-shadow:var(--sh2);transform:translateY(-4px);}
+.proj-card:hover::before{width:5px;}
+.proj-type{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.7rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--muted);margin-bottom:0.8rem;}
+.proj-type.freelance{color:var(--gold);}
+.proj-type.intern{color:var(--blue);}
+.proj-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:0.65rem;line-height:1.3;}
+.proj-desc{font-size:0.85rem;color:var(--text2);line-height:1.75;flex:1;}
+.proj-tech{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1.1rem;}
+.tech-tag{background:rgba(37,99,235,0.06);border:1px solid rgba(37,99,235,0.14);color:var(--blue);font-size:0.68rem;font-weight:600;padding:0.22rem 0.6rem;border-radius:5px;font-family:'DM Mono',monospace;}
+.proj-links{display:flex;gap:0.6rem;margin-top:1.3rem;}
+.proj-link{display:inline-flex;align-items:center;gap:0.35rem;font-size:0.78rem;font-weight:700;text-decoration:none;padding:0.42rem 0.9rem;border-radius:8px;transition:all 0.18s;}
+.proj-link.live{background:var(--navy);color:#fff;box-shadow:0 2px 10px rgba(10,22,40,0.2);}
+.proj-link.live:hover{background:var(--blue);}
+.proj-featured{position:absolute;top:1rem;right:1rem;background:var(--gold);color:#fff;font-size:0.6rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;padding:0.22rem 0.55rem;border-radius:5px;}
+
+/* ── EXPERIENCE ── */
+.exp-wrap{max-width:780px;}
+.exp-item{display:grid;grid-template-columns:160px 1fr;gap:2rem;margin-bottom:2.5rem;position:relative;}
+.exp-item::after{content:'';position:absolute;left:152px;top:0;bottom:-2.5rem;width:1.5px;background:var(--border2);}
+.exp-item:last-child::after{display:none;}
+.exp-date{font-family:'DM Mono',monospace;font-size:0.73rem;color:var(--muted);padding-top:0.25rem;text-align:right;padding-right:1.5rem;}
+.exp-dot{position:absolute;left:148px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--blue);border:2px solid var(--bg);box-shadow:0 0 0 3px rgba(37,99,235,0.25);}
+.exp-body{background:var(--card-bg);border:1.5px solid var(--border);border-radius:14px;padding:1.6rem 1.8rem;box-shadow:var(--sh);}
+.exp-role{font-size:1.0rem;font-weight:700;color:var(--navy);}
+.exp-company{font-size:0.85rem;color:var(--blue);font-weight:600;margin-top:0.2rem;}
+.exp-loc{font-size:0.75rem;color:var(--muted);margin-top:0.15rem;}
+.exp-bullets{margin-top:1rem;padding-left:0;list-style:none;}
+.exp-bullets li{font-size:0.87rem;color:var(--text2);padding:0.32rem 0 0.32rem 1.2rem;position:relative;line-height:1.7;}
+.exp-bullets li::before{content:'';position:absolute;left:0;top:0.68rem;width:6px;height:6px;border-radius:50%;background:var(--blue-l);}
+
+/* ── EDUCATION ── */
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem;}
+.edu-card{background:var(--card-bg);border:1.5px solid var(--border);border-radius:16px;padding:1.7rem;transition:all 0.22s;position:relative;overflow:hidden;}
+.edu-card:hover{border-color:var(--blue-ll);box-shadow:var(--sh2);transform:translateY(-3px);}
+.edu-year{font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted);font-weight:500;letter-spacing:0.06em;margin-bottom:0.6rem;}
+.edu-degree{font-family:'Playfair Display',serif;font-size:1.0rem;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:0.4rem;}
+.edu-inst{font-size:0.82rem;color:var(--blue);font-weight:600;}
+.edu-loc{font-size:0.75rem;color:var(--muted);margin-top:0.2rem;}
+.edu-score{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);color:#92400e;font-size:0.75rem;font-weight:700;padding:0.3rem 0.75rem;border-radius:8px;margin-top:0.9rem;}
+.edu-current{position:absolute;top:1rem;right:1rem;background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.2);color:var(--blue);font-size:0.65rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:100px;}
+
+/* ── CERTIFICATES ── */
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.2rem;}
+.cert-card{background:var(--card-bg);border:1.5px solid var(--border);border-radius:16px;padding:1.7rem;transition:all 0.22s;position:relative;overflow:hidden;display:flex;flex-direction:column;}
+.cert-card:hover{border-color:var(--blue-ll);box-shadow:var(--sh2);transform:translateY(-3px);}
+.cert-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--navy2),var(--blue));}
+.cert-icon-wrap{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--navy2),var(--blue));display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1rem;box-shadow:0 3px 12px rgba(37,99,235,0.3);}
+.cert-issuer{font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted);letter-spacing:0.06em;margin-bottom:0.4rem;}
+.cert-name{font-family:'Playfair Display',serif;font-size:1.0rem;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:0.4rem;}
+.cert-date{font-size:0.75rem;color:var(--muted);margin-bottom:1rem;}
+.cert-link{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.78rem;font-weight:700;text-decoration:none;color:var(--blue);padding:0.4rem 0.9rem;border-radius:8px;border:1.5px solid var(--border2);transition:all 0.18s;margin-top:auto;}
+.cert-link:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
+.cert-placeholder{background:var(--bg);border:1.5px dashed var(--border2);border-radius:16px;padding:2rem;text-align:center;opacity:0.65;}
+.cert-ph-icon{font-size:2rem;margin-bottom:0.6rem;}
+.cert-ph-text{font-size:0.82rem;color:var(--muted);line-height:1.6;}
+
+/* ── CONTACT ── */
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;}
+.contact-hero-card{background:var(--navy2);border-radius:20px;padding:2.5rem;color:#fff;position:relative;overflow:hidden;grid-column:1/-1;}
+.contact-hero-card::before{content:'';position:absolute;bottom:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(37,99,235,0.18);pointer-events:none;}
+.contact-hero-card::after{content:'';position:absolute;top:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:rgba(245,158,11,0.07);pointer-events:none;}
+.contact-hero-label{font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.7rem;}
+.contact-hero-card h3{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;line-height:1.2;margin-bottom:0.6rem;}
+.contact-hero-card p{font-size:0.9rem;color:rgba(255,255,255,0.7);line-height:1.75;max-width:600px;}
+/* Contact link cards */
+.clink{
+  display:flex;align-items:center;gap:1rem;
+  background:var(--card-bg);
+  border:1.5px solid var(--border);
+  border-radius:14px;
+  padding:1.3rem 1.5rem;
+  text-decoration:none;
+  transition:all 0.22s;
+  color:var(--text);
+}
+.clink:hover{border-color:var(--blue-ll);box-shadow:var(--sh2);transform:translateY(-3px);}
+.clink-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.clink-icon.email{background:linear-gradient(135deg,#dc2626,#ef4444);box-shadow:0 3px 12px rgba(220,38,38,0.3);}
+.clink-icon.phone{background:linear-gradient(135deg,#16a34a,#22c55e);box-shadow:0 3px 12px rgba(22,163,74,0.3);}
+.clink-icon.whatsapp{background:linear-gradient(135deg,#15803d,#25d366);box-shadow:0 3px 12px rgba(37,211,102,0.3);}
+.clink-icon.linkedin{background:linear-gradient(135deg,#0369a1,#0ea5e9);box-shadow:0 3px 12px rgba(3,105,161,0.3);}
+.clink-icon.github{background:linear-gradient(135deg,#1e293b,#475569);box-shadow:0 3px 12px rgba(30,41,59,0.3);}
+.clink-body{}
+.clink-label{font-size:0.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.2rem;}
+.clink-value{font-size:0.9rem;font-weight:600;color:var(--navy);}
+.clink:hover .clink-value{color:var(--blue);}
+
+/* Contact profile card */
+.contact-profile-card{background:var(--navy2);border-radius:20px;padding:2.2rem;color:#fff;display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.2rem;position:relative;overflow:hidden;height:100%;}
+.contact-profile-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--blue));}
+.contact-profile-photo{width:130px;height:130px;border-radius:50%;overflow:hidden;border:3px solid rgba(255,255,255,0.2);box-shadow:0 8px 28px rgba(10,22,40,0.4);}
+.contact-profile-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+.contact-profile-name{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#fff;line-height:1.2;}
+.contact-profile-role{font-size:0.8rem;color:rgba(255,255,255,0.65);font-family:'DM Mono',monospace;letter-spacing:0.04em;}
+.contact-profile-badge{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);color:var(--gold-l);padding:0.3rem 0.9rem;border-radius:100px;font-size:0.72rem;font-weight:700;}
+.contact-social-links{display:flex;flex-direction:column;gap:0.6rem;width:100%;}
+.contact-soc-btn{display:flex;align-items:center;gap:0.75rem;padding:0.7rem 1rem;border-radius:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);text-decoration:none;color:#fff;font-size:0.82rem;font-weight:600;transition:all 0.2s;}
+.contact-soc-btn:hover{background:rgba(255,255,255,0.13);border-color:rgba(255,255,255,0.22);transform:translateX(3px);}
+.contact-soc-btn .soc-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0;}
+.soc-icon.gh{background:linear-gradient(135deg,#1e293b,#475569);}
+.soc-icon.li{background:linear-gradient(135deg,#0369a1,#0ea5e9);}
+.soc-icon.wa{background:linear-gradient(135deg,#15803d,#25d366);}
+.soc-icon.em{background:linear-gradient(135deg,#dc2626,#ef4444);}
+
+/* ── FOOTER ── */
+footer{background:var(--navy);color:rgba(255,255,255,0.7);padding:2.5rem 0;text-align:center;}
+.footer-inner{max-width:1100px;margin:0 auto;padding:0 2rem;display:flex;flex-direction:column;align-items:center;gap:1rem;}
+.footer-name{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:#fff;}
+.footer-links{display:flex;gap:1.2rem;list-style:none;flex-wrap:wrap;justify-content:center;}
+.footer-links a{font-size:0.8rem;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.18s;}
+.footer-links a:hover{color:var(--gold);}
+.footer-copy{font-size:0.75rem;color:rgba(255,255,255,0.4);}
+
+/* ── SCROLL TOP ── */
+.scroll-top{position:fixed;bottom:2rem;right:2rem;z-index:500;width:42px;height:42px;border-radius:50%;background:var(--navy);color:#fff;border:none;cursor:pointer;font-size:1rem;box-shadow:0 4px 16px rgba(10,22,40,0.3);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:all 0.3s;transform:translateY(10px);}
+.scroll-top.show{opacity:1;pointer-events:all;transform:translateY(0);}
+.scroll-top:hover{background:var(--blue);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;gap:3rem;padding:8rem 0 4rem;}
+  .hero-right{max-width:340px;margin:0 auto;}
+  .about-grid{grid-template-columns:1fr;}
+  .contact-wrap{grid-template-columns:1fr;}
+  .contact-hero-card{grid-column:auto;}
+  .exp-item{grid-template-columns:1fr;gap:0.5rem;}
+  .exp-item::after{display:none;}
+  .exp-date{text-align:left;padding:0;font-size:0.78rem;}
+  .exp-dot{display:none;}
+  .contact-profile-card{min-height:auto;}
+}
+@media(max-width:660px){
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .mobile-menu{display:flex;}
+  section{padding:4rem 0;}
+  .about-highlights{grid-template-columns:1fr;}
+  .hero-stats{gap:1.6rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ━━━ NAV ━━━ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">
+      <div class="logo-box">YK</div>
+      <div class="logo-text">Yogesh Kalyankar<span>My Portfolio</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#certificates">Certificates</a></li>
+      <li><a href="#contact" class="hire">Hire Me</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-menu" id="closeMenu">✕</button>
+  <a href="#about" class="mob-link">About</a>
+  <a href="#skills" class="mob-link">Skills</a>
+  <a href="#projects" class="mob-link">Projects</a>
+  <a href="#experience" class="mob-link">Experience</a>
+  <a href="#education" class="mob-link">Education</a>
+  <a href="#certificates" class="mob-link">Certificates</a>
+  <a href="#contact" class="mob-link">Contact</a>
+</div>
+
+<!-- ━━━ HERO ━━━ -->
+<section id="hero" style="padding:0;background:var(--bg);">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="container">
+    <div class="hero">
+      <!-- Left -->
+      <div class="hero-left">
+        <div class="hero-badge"><div class="badge-pulse"></div>Available for Opportunities</div>
+        <p class="hero-eyebrow">// Hello, World!</p>
+        <h1 class="hero-name">Yogesh<br><span class="accent">Kalyankar</span></h1>
+        <p class="hero-role"><span class="typed" id="typed"></span><span class="cur"></span></p>
+        <p class="hero-desc">
+          Final-year <strong>Diploma IT student</strong> from Government Polytechnic Jalgaon.
+          Passionate about building <strong>web apps</strong> and delivering real solutions
+          to real clients — with <strong>3 live freelance websites</strong> already deployed.
+        </p>
+        <div class="hero-btns">
+          <a href="#projects" class="btn-primary">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            View Projects
+          </a>
+          <a href="Resume.pdf" download class="btn-secondary">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Resume
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div><div class="stat-num">3<em>+</em></div><div class="stat-lbl">Live Websites</div></div>
+          <div><div class="stat-num">2<em>+</em></div><div class="stat-lbl">Real Clients</div></div>
+          <div><div class="stat-num">89<em>%</em></div><div class="stat-lbl">SSC Score</div></div>
+          <div><div class="stat-num">3<em>mo</em></div><div class="stat-lbl">Internship</div></div>
+        </div>
+      </div>
+      <!-- Right: Photo Card -->
+      <div class="hero-right">
+        <div class="deco-ring"></div>
+        <div class="deco-ring2"></div>
+        <div class="photo-card">
+          <div class="photo-wrapper">
+            <img src="photo.png" alt="Yogesh Kalyankar"/>
+          </div>
+          <div class="photo-info">
+            <div class="photo-name">Yogesh G. Kalyankar</div>
+            <div style="display:inline-flex;align-items:center;gap:0.4rem;background:var(--navy);color:#fff;padding:0.3rem 0.75rem;border-radius:8px;font-size:0.7rem;font-weight:700;margin:0.4rem 0;box-shadow:0 2px 8px rgba(10,22,40,0.25);">🎓 Diploma IT · 3rd Year</div>
+            <div class="photo-title">Web Developer · Freelancer · AI Tools User</div>
+            <div class="photo-socials">
+              <a href="https://github.com/yogeshgk9765" target="_blank" class="soc-btn" title="GitHub">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              </a>
+              <!-- UPDATE YOUR LINKEDIN URL BELOW -->
+              <a href="https://www.linkedin.com/in/yogesh-kalyankar/" target="_blank" class="soc-btn" title="LinkedIn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </a>
+              <a href="mailto:yogeshkalyankar9765@gmail.com" class="soc-btn" title="Email">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </a>
+              <a href="https://wa.me/919765663222" target="_blank" class="soc-btn" title="WhatsApp">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ ABOUT ━━━ -->
+<section id="about">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-label">About Me</div>
+      <h2 class="section-title">Who I Am</h2>
+      <p class="section-sub">A passionate developer turning ideas into real, working products.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-text fade-up delay-1">
+        <p>I'm <strong>Yogesh Gangadhar Kalyankar</strong>, a final-year Diploma IT student at Government Polytechnic Jalgaon. I have real-world experience building and deploying websites for paying clients — from government service centers to digital shops.</p>
+        <p>During my <strong>3-month internship</strong> at Passion Software Solution, Jalgaon, I built an e-commerce website using Java, JSP, and Apache Tomcat in a real production environment.</p>
+        <p>I believe in learning by building. Every project I take on — from freelance websites to academic projects — pushes me to grow as a developer.</p>
+        <div class="about-highlights">
+          <div class="hl-card">
+            <div class="hl-icon">🌐</div>
+            <div class="hl-title">Web Development</div>
+            <div class="hl-desc">Responsive, bilingual, live websites</div>
+          </div>
+          <div class="hl-card">
+            <div class="hl-icon">🤖</div>
+            <div class="hl-title">AI Tools User</div>
+            <div class="hl-desc">ChatGPT, Claude, Gemini</div>
+          </div>
+          <div class="hl-card">
+            <div class="hl-icon">💼</div>
+            <div class="hl-title">Freelancer</div>
+            <div class="hl-desc">2 clients · 3 live websites</div>
+          </div>
+          <div class="hl-card">
+            <div class="hl-icon">☕</div>
+            <div class="hl-title">Java Developer</div>
+            <div class="hl-desc">JSP · Servlets · Apache Tomcat</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-right fade-up delay-2">
+        <div class="about-right-label">Quick Info</div>
+        <div class="info-row"><span class="info-key">Name</span><span class="info-val">Yogesh G. Kalyankar</span></div>
+        <div class="info-row"><span class="info-key">Location</span><span class="info-val">📍 Nanded, Maharashtra</span></div>
+        <div class="info-row"><span class="info-key">College</span><span class="info-val">Govt. Polytechnic Jalgaon</span></div>
+        <div class="info-row"><span class="info-key">Degree</span><span class="info-val">Diploma IT (3rd Year)</span></div>
+        <div class="info-row"><span class="info-key">Email</span><span class="info-val"><a href="mailto:yogeshkalyankar9765@gmail.com">yogeshkalyankar9765@gmail.com</a></span></div>
+        <div class="info-row"><span class="info-key">Phone</span><span class="info-val"><a href="tel:9765663222">+91 9765663222</a></span></div>
+        <div class="info-row"><span class="info-key">GitHub</span><span class="info-val"><a href="https://github.com/yogeshgk9765" target="_blank">github.com/yogeshgk9765</a></span></div>
+        <div class="info-row"><span class="info-key">Languages</span><span class="info-val">English · Marathi · Hindi</span></div>
+        <div style="margin-top:1.6rem;">
+          <a href="Resume.pdf" download class="btn-primary" style="display:inline-flex;font-size:0.82rem;padding:0.65rem 1.4rem;">
+            Download Resume &nbsp;↓
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ SKILLS ━━━ -->
+<section id="skills" style="background:var(--bg);">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-label">Technical Skills</div>
+      <h2 class="section-title">What I Work With</h2>
+      <p class="section-sub">A growing toolkit built through real projects, internships, and self-learning.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card fade-up delay-1">
+        <div class="skill-card-head"><div class="skill-icon">🎨</div><div class="skill-cat">Frontend</div></div>
+        <div class="skill-tags">
+          <span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span>
+          <span class="skill-tag">Responsive Design</span><span class="skill-tag">CSS Grid</span>
+          <span class="skill-tag">Flexbox</span><span class="skill-tag">CSS Variables</span>
+          <span class="skill-tag">Animations</span><span class="skill-tag">JavaScript</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up delay-2">
+        <div class="skill-card-head"><div class="skill-icon">💻</div><div class="skill-cat">Programming</div></div>
+        <div class="skill-tags">
+          <span class="skill-tag">Java (Basics)</span><span class="skill-tag">Python (Basics)</span>
+          <span class="skill-tag">JavaScript (Basics)</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up delay-3">
+        <div class="skill-card-head"><div class="skill-icon">🖥️</div><div class="skill-cat">Server-Side</div></div>
+        <div class="skill-tags">
+          <span class="skill-tag">JSP / Servlets</span><span class="skill-tag">Apache Tomcat</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up delay-1">
+        <div class="skill-card-head"><div class="skill-icon">🗄️</div><div class="skill-cat">Database</div></div>
+        <div class="skill-tags">
+          <span class="skill-tag">MySQL</span><span class="skill-tag">SQL Queries</span>
+          <span class="skill-tag">DBMS Concepts</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up delay-2">
+        <div class="skill-card-head"><div class="skill-icon">🛠️</div><div class="skill-cat">Tools & Platforms</div></div>
+        <div class="skill-tags">
+          <span class="skill-tag">VS Code</span><span class="skill-tag">Eclipse</span>
+          <span class="skill-tag">Git</span><span class="skill-tag">GitHub</span>
+          <span class="skill-tag">GitHub Pages</span><span class="skill-tag">Sublime Text</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up delay-3">
+        <div class="skill-card-head"><div class="skill-icon">🤖</div><div class="skill-cat">AI Tools User</div></div>
+        <div class="skill-tags">
+          <span class="skill-tag highlight">ChatGPT</span>
+          <span class="skill-tag highlight">Claude (Anthropic)</span>
+          <span class="skill-tag highlight">Gemini</span>
+          <span class="skill-tag highlight">Google AI Studio</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ PROJECTS ━━━ -->
+<section id="projects">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-label">Projects</div>
+      <h2 class="section-title">Things I've Built</h2>
+      <p class="section-sub">Freelance client websites and internship project — all built, deployed, and real.</p>
+    </div>
+    <div class="projects-grid">
+
+      <div class="proj-card fade-up delay-1">
+        <div class="proj-featured">⭐ Best</div>
+        <div class="proj-type freelance">● Freelance · May 2026</div>
+        <div class="proj-name">Jumbo Online Center</div>
+        <p class="proj-desc">Complete bilingual (Marathi + English) website for a CSC digital services center. Features 30+ government services, dark mode toggle, language switcher, owner profile with real photo, WhatsApp group join button, and Google Maps integration.</p>
+        <div class="proj-tech">
+          <span class="tech-tag">HTML5</span><span class="tech-tag">CSS3</span>
+          <span class="tech-tag">JavaScript</span><span class="tech-tag">GitHub Pages</span>
+        </div>
+        <div class="proj-links">
+          <a href="https://yogeshgk9765.github.io/Jumbo-Online" target="_blank" class="proj-link live">🔗 Live Site</a>
+        </div>
+      </div>
+
+      <div class="proj-card fade-up delay-2">
+        <div class="proj-type freelance">● Freelance · May 2026</div>
+        <div class="proj-name">Pramod Online — Website 1</div>
+        <p class="proj-desc">Bilingual (Marathi + English) business website for a government services CSC shop. Multi-page responsive layout with 20+ services, document checklists, WhatsApp & call integration, and Google Maps.</p>
+        <div class="proj-tech">
+          <span class="tech-tag">HTML5</span><span class="tech-tag">CSS Grid</span>
+          <span class="tech-tag">Flexbox</span><span class="tech-tag">GitHub Pages</span>
+        </div>
+        <div class="proj-links">
+          <a href="https://yogeshgk9765.github.io/Pramod-Online" target="_blank" class="proj-link live">🔗 Live Site</a>
+        </div>
+      </div>
+
+      <div class="proj-card fade-up delay-3">
+        <div class="proj-type freelance">● Freelance · May 2026</div>
+        <div class="proj-name">Pramod Online — Website 2</div>
+        <p class="proj-desc">Second complete bilingual website for the same CSC client, offering a different layout and extended services. Mobile-friendly design with CSS animations and professional responsive structure.</p>
+        <div class="proj-tech">
+          <span class="tech-tag">HTML5</span><span class="tech-tag">CSS3</span>
+          <span class="tech-tag">JavaScript</span><span class="tech-tag">GitHub Pages</span>
+        </div>
+        <div class="proj-links">
+          <a href="https://yogeshgk9765.github.io/Pramod-Online-Multiservices" target="_blank" class="proj-link live">🔗 Live Site</a>
+        </div>
+      </div>
+
+      <div class="proj-card fade-up delay-1">
+        <div class="proj-type intern">◆ Internship · 2025</div>
+        <div class="proj-name">E-Commerce Website</div>
+        <p class="proj-desc">Full e-commerce platform built during internship at Passion Software Solution. Includes product listing, cart functionality, and was deployed on Apache Tomcat in a real production-style environment.</p>
+        <div class="proj-tech">
+          <span class="tech-tag">Java</span><span class="tech-tag">JSP</span>
+          <span class="tech-tag">HTML/CSS</span><span class="tech-tag">Apache Tomcat</span>
+          <span class="tech-tag">MySQL</span>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/YogeshGK9765/Ecommerce-Website" target="_blank" class="proj-link live">🔗 GitHub Repo</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ EXPERIENCE ━━━ -->
+<section id="experience" style="background:var(--bg);">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-label">Experience</div>
+      <h2 class="section-title">Work History</h2>
+      <p class="section-sub">Real-world experience from internship and freelance work.</p>
+    </div>
+    <div class="exp-wrap">
+
+      <div class="exp-item fade-up delay-1">
+        <div class="exp-date">June 2026</div>
+        <div class="exp-dot"></div>
+        <div class="exp-body">
+          <div class="exp-role">Web Development Intern</div>
+          <div class="exp-company">Passion Software Solution</div>
+          <div class="exp-loc">📍 Jalgaon, Maharashtra · 3 Months</div>
+          <ul class="exp-bullets">
+            <li>Worked in a professional software development environment and learned real-world web application development practices</li>
+            <li>Built a fully functional <strong>E-Commerce Website</strong> with product listing and cart functionality</li>
+            <li>Gained hands-on experience with <strong>Java, JSP, Apache Tomcat, and MySQL</strong> in a production-style setup</li>
+            <li>Understood how web applications are structured, developed, and deployed in an industry setting</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item fade-up delay-2">
+        <div class="exp-date">May 2026</div>
+        <div class="exp-dot"></div>
+        <div class="exp-body">
+          <div class="exp-role">Freelance Web Developer</div>
+          <div class="exp-company">Jumbo Online Center — Client: Taleem Tamboli</div>
+          <div class="exp-loc">📍 Ahmadpur, Latur</div>
+          <ul class="exp-bullets">
+            <li>Designed and delivered complete bilingual (Marathi + English) website for a CSC digital services center</li>
+            <li>Built 30+ government service listings, dark mode, language switcher, and WhatsApp group integration</li>
+            <li>Independently deployed live on GitHub Pages — publicly accessible</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item fade-up delay-3">
+        <div class="exp-date">May 2026</div>
+        <div class="exp-dot"></div>
+        <div class="exp-body">
+          <div class="exp-role">Freelance Web Developer</div>
+          <div class="exp-company">Pramod Online Multi-Services — Client: Pramod Gaikwad</div>
+          <div class="exp-loc">📍 Ahmadpur, Latur</div>
+          <ul class="exp-bullets">
+            <li>Designed and delivered <strong>TWO complete bilingual</strong> business websites for a government services CSC shop</li>
+            <li>Used CSS Grid, Flexbox, CSS variables, and animations for professional and mobile-friendly design</li>
+            <li>Independently deployed both websites live on GitHub Pages — publicly accessible</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ EDUCATION ━━━ -->
+<section id="education">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-label">Education</div>
+      <h2 class="section-title">Academic Background</h2>
+      <p class="section-sub">A strong academic foundation built across three institutions.</p>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card fade-up delay-1">
+        <div class="edu-current">Pursuing</div>
+        <div class="edu-year">2023 – Expected May 2026</div>
+        <div class="edu-degree">Diploma in Information Technology</div>
+        <div class="edu-inst">Government Polytechnic Jalgaon</div>
+        <div class="edu-loc">📍 Jalgaon, Maharashtra</div>
+        <p style="font-size:0.78rem;color:var(--muted);margin-top:0.65rem;line-height:1.6;">Relevant Coursework: Java, Python, DBMS, Web Development, Data Structures, Mobile Networks</p>
+      </div>
+      <div class="edu-card fade-up delay-2">
+        <div class="edu-year">March 2024</div>
+        <div class="edu-degree">Higher Secondary Certificate (HSC)</div>
+        <div class="edu-inst">Mahatma Phule Junior College</div>
+        <div class="edu-loc">📍 Ahmedpur, Latur, Maharashtra</div>
+        <div class="edu-score">📊 70.33% · Science Stream</div>
+      </div>
+      <div class="edu-card fade-up delay-3">
+        <div class="edu-year">March 2021</div>
+        <div class="edu-degree">Secondary School Certificate (SSC)</div>
+        <div class="edu-inst">Mahatma Phule Secondary &amp; Higher Secondary School</div>
+        <div class="edu-loc">📍 Ahmedpur, Latur, Maharashtra</div>
+        <div class="edu-score">⭐ 89.80% — Strong Academic Foundation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ CERTIFICATES ━━━ -->
+<section id="certificates" style="background:var(--bg);">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-label">Certificates</div>
+      <h2 class="section-title">My Certifications</h2>
+      <p class="section-sub">Earned certificates from internship and courses.</p>
+    </div>
+    <div class="cert-grid fade-up delay-1">
+
+      <!-- Internship Certificate — already have it -->
+      <div class="cert-card">
+        <div class="cert-icon-wrap">🏢</div>
+        <div class="cert-issuer">Passion Software Solution</div>
+        <div class="cert-name">Web Development Internship Certificate</div>
+        <div class="cert-date">📅 June 2026 · Jalgaon, Maharashtra · 3 Months</div>
+        <!-- Place your certificate file as internship_certificate.pdf in same folder -->
+        <a href="internship_certificate.pdf" target="_blank" class="cert-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          View Certificate
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ CONTACT ━━━ -->
+<section id="contact">
+  <div class="container">
+    <div class="section-head fade-up">
+      <div class="section-label">Contact</div>
+      <h2 class="section-title">Let's Work Together</h2>
+      <p class="section-sub">Have a project in mind? Reach out directly!</p>
+    </div>
+    <div class="contact-wrap fade-up delay-1">
+
+      <!-- LEFT: Contact details -->
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+
+        <!-- Hero card -->
+        <div class="contact-hero-card" style="grid-column:auto;">
+          <div class="contact-hero-label">Get In Touch</div>
+          <h3>Open to Internships &amp; Freelance Work</h3>
+          <p>I'm currently looking for internship opportunities and freelance web development projects. Click any link below to reach me instantly — I respond fast!</p>
+        </div>
+
+        <!-- Email -->
+        <a href="mailto:yogeshkalyankar9765@gmail.com" class="clink">
+          <div class="clink-icon email">📧</div>
+          <div class="clink-body">
+            <div class="clink-label">Email</div>
+            <div class="clink-value">yogeshkalyankar9765@gmail.com</div>
+          </div>
+        </a>
+
+        <!-- Phone -->
+        <a href="tel:+919765663222" class="clink">
+          <div class="clink-icon phone">📞</div>
+          <div class="clink-body">
+            <div class="clink-label">Phone</div>
+            <div class="clink-value">+91 97656 63222</div>
+          </div>
+        </a>
+
+        <!-- WhatsApp -->
+        <a href="https://wa.me/919765663222" target="_blank" class="clink">
+          <div class="clink-icon whatsapp">💬</div>
+          <div class="clink-body">
+            <div class="clink-label">WhatsApp</div>
+            <div class="clink-value">Chat on WhatsApp</div>
+          </div>
+        </a>
+
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/in/yogesh-kalyankar/" target="_blank" class="clink">
+          <div class="clink-icon linkedin">💼</div>
+          <div class="clink-body">
+            <div class="clink-label">LinkedIn</div>
+            <div class="clink-value">linkedin.com/in/yogesh-kalyankar</div>
+          </div>
+        </a>
+
+        <!-- GitHub -->
+        <a href="https://github.com/yogeshgk9765" target="_blank" class="clink">
+          <div class="clink-icon github">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          </div>
+          <div class="clink-body">
+            <div class="clink-label">GitHub</div>
+            <div class="clink-value">github.com/yogeshgk9765</div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- RIGHT: Photo + Name + Role + Social links -->
+      <div class="contact-profile-card">
+        <div class="contact-profile-photo">
+          <img src="logo.png" alt="Yogesh Kalyankar"/>
+        </div>
+        <div class="contact-profile-name">Yogesh Kalyankar</div>
+        <div class="contact-profile-role">Diploma IT · 3rd Year Pursuing</div>
+        <div class="contact-profile-badge">🌐 Web Designer &amp; Developer</div>
+
+        <div class="contact-social-links">
+          <a href="https://github.com/yogeshgk9765" target="_blank" class="contact-soc-btn">
+            <span class="soc-icon gh"><svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></span>
+            github.com/yogeshgk9765
+          </a>
+          <a href="https://www.linkedin.com/in/yogesh-kalyankar/" target="_blank" class="contact-soc-btn">
+            <span class="soc-icon li"><svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
+            linkedin.com/in/yogesh-kalyankar
+          </a>
+          <a href="https://wa.me/919765663222" target="_blank" class="contact-soc-btn">
+            <span class="soc-icon wa"><svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></span>
+            WhatsApp Me
+          </a>
+          <a href="mailto:yogeshkalyankar9765@gmail.com" class="contact-soc-btn">
+            <span class="soc-icon em">📧</span>
+            yogeshkalyankar9765@gmail.com
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ FOOTER ━━━ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-name">Yogesh Kalyankar</div>
+    <ul class="footer-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#certificates">Certificates</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 Yogesh Kalyankar · Built with passion · All rights reserved</p>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// Typed Effect
+const roles=["Web Developer","Freelancer","AI Tools User","Diploma IT Student","Problem Solver"];
+let ri=0,ci=0,del=false;
+const el=document.getElementById('typed');
+function typeIt(){
+  const cur=roles[ri];
+  if(!del){el.textContent=cur.substring(0,ci+1);ci++;if(ci===cur.length){del=true;setTimeout(typeIt,1800);return;}}
+  else{el.textContent=cur.substring(0,ci-1);ci--;if(ci===0){del=false;ri=(ri+1)%roles.length;setTimeout(typeIt,350);return;}}
+  setTimeout(typeIt,del?48:80);
+}
+typeIt();
+// Nav scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
+  document.getElementById('scrollTop').classList.toggle('show',window.scrollY>400);
+});
+// Fade up
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.12});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+// Mobile menu
+const ham=document.getElementById('hamburger'),mob=document.getElementById('mobileMenu'),cls=document.getElementById('closeMenu');
+ham.addEventListener('click',()=>mob.classList.add('open'));
+cls.addEventListener('click',()=>mob.classList.remove('open'));
+document.querySelectorAll('.mob-link').forEach(a=>a.addEventListener('click',()=>mob.classList.remove('open')));
+</script>
+</body>
+</html>
